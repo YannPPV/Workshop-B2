@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Dimensionnel - Rick &amp; Morty</title>
+    <link rel="stylesheet" href="css/style.css?v=20260918-1">
+</head>
+
+<body>
+
+    <!-- Fond fixe : ne bouge jamais, quel que soit l'écran affiché -->
+    <div class="bg-fixed"></div>
+
+    <!-- Titre fixe : toujours au même endroit à l'écran -->
+    <div class="title-fixed">
+        <div class="title">Warp Gate Detector</div>
+        <div class="title middle">Warp Gate Detector</div>
+        <div class="title bottom">Warp Gate Detector</div>
+    </div>
+
+    <main class="container1">
+        <div class="container">
+
+            <!-- Écran d'accueil -->
+            <section id="accueil" class="screen active">
+                <button id="detectButton" class="main-button">
+                    <span>Commencer</span>
+                </button>
+            </section>
+
+
+            <!-- Écran blague -->
+            <section id="blague" class="screen">
+                <h2>Raconte-moi une blague nulle avant</h2>
+                <p>La recherche du portail se débloque après validation de ta blague par l’IA.</p>
+
+                <button id="microButton" class="main-button">
+                    <span class="micro">🎙️</span>
+                </button>
+
+                <p id="status" role="status" aria-live="polite">Clique sur le micro pour commencer</p>
+                <details id="textEntry" class="text-entry">
+                    <summary>Écrire la blague au clavier</summary>
+                    <form id="jokeForm">
+                        <label for="jokeInput">Ta blague</label>
+                        <textarea id="jokeInput" rows="3" maxlength="5000" required></textarea>
+                        <button id="submitButton" class="secondary-button" type="submit">Analyser la blague</button>
+                    </form>
+                </details>
+            </section>
+
+
+            <!-- Écran analyse en cours -->
+            <section id="analyse" class="screen">
+                <h2>Analyse en cours</h2>
+                <p id="analyseTranscript"></p>
+
+                <div class="progress-bar" role="progressbar" aria-label="Analyse de la blague en cours">
+                    <div class="progress-bar-fill" id="progressFill"></div>
+                </div>
+                <p id="progressLabel" role="status">Analyse de ta blague… Cela peut prendre quelques minutes.</p>
+            </section>
+
+
+            <!-- Recherche des capteurs autorisée uniquement après validation de la blague -->
+            <section id="radar" class="screen">
+                <h2 id="radarTitle">Recherche du portail</h2>
+                <p id="validationStatus" class="validation-status" role="status">Validation de la blague requise</p>
+                <p id="searchState" class="search-state" role="status" aria-live="polite">Recherche arrêtée</p>
+
+                <div class="radar" id="radarDisplay" aria-label="Radar des quatre directions">
+                    <div class="radar-sweep" aria-hidden="true"></div>
+                    <span class="radar-label radar-n">N</span>
+                    <span class="radar-label radar-s">S</span>
+                    <span class="radar-label radar-e">E</span>
+                    <span class="radar-label radar-w">O</span>
+
+                    <!-- Point central : sera remplacé par une petite image de Rick et Morty -->
+                    <div class="radar-center" id="radarCenter"></div>
+
+                    <!-- Portail positionné dynamiquement via top/left/right/bottom -->
+                    <img src="src/images/background-gate.png" alt="Portail" class="radar-portal" id="radarPortal" hidden>
+                </div>
+
+                <p id="radarStatus" role="status" aria-live="polite"></p>
+                <button id="restartButton" class="secondary-button">Arrêter et recommencer</button>
+            </section>
+
+
+            <!-- Résultat (blague pas assez nulle) -->
+            <section id="resultat" class="screen">
+                <h2 id="resultText" role="status"></h2>
+                <button id="retryButton" class="secondary-button">Réessayer</button>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="src/script.js?v=20260918-1"></script>
+
+</body>
+</html>

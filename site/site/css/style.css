@@ -1,0 +1,401 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* =========================
+   FOND FIXE
+   (ne bouge plus jamais, ni entre les écrans, ni au scroll)
+   ========================= */
+
+.bg-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../src/images/bg-img.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================
+   TITRE FIXE
+   (un seul titre pour toute la page, toujours au même endroit)
+   ========================= */
+
+.title-fixed {
+    position: fixed;
+    top: 4vh;
+    left: 0;
+    width: 100%;
+    height: 5.5em;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Get Schwifty';
+    font-size: clamp(2rem, 6vw, 5rem);
+    color: #08BAE3;
+    z-index: 3;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
+}
+
+.title.middle {
+    -webkit-text-stroke: 0.1em #FFF765;
+    z-index: 2;
+}
+
+.title.bottom {
+    -webkit-text-stroke: 0.4em black;
+    z-index: 1;
+}
+
+
+/* =========================
+   CONTENU PRINCIPAL
+   (au-dessus du fond -> le bouton n'est plus jamais caché dessous)
+   ========================= */
+
+.container1 {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    max-width: 800px;
+    padding: 3px;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    min-height: 100vh;
+    margin: auto;
+    text-align: center;
+    padding: max(150px, 20vh) 24px 48px;
+    border-radius: 120px;
+}
+
+/* =========================
+   ÉCRANS
+   ========================= */
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    min-height: 65vh;
+    /*padding-top: 22vh;*/
+    flex-direction: column;
+}
+
+h2 {
+    font-size: clamp(24px, 3.5vw, 35px);
+    text-shadow: darkgreen 5px 3px 2px;
+}
+
+
+/* =========================
+   BOUTON PRINCIPAL
+   ========================= */
+
+.main-button {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 12px solid #b8b8b8;
+    background: #b8b8b8;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.main-button span {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at 45% 35%,
+            #ff5555 0%,
+            #f00000 30%,
+            #c40000 65%,
+            #8b0000 100%
+        );
+    box-shadow:
+        inset 0 8px 8px rgba(255, 255, 255, 0.45),
+        inset 0 -12px 15px rgba(80, 0, 0, 0.7);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    transition:
+        transform 0.1s,
+        box-shadow 0.1s;
+}
+
+.main-button span.micro {
+    font-size: 80px;
+}
+
+.main-button:hover span {
+    transform: scale(1.03);
+}
+
+.main-button:active span {
+    transform: translateY(5px) scale(0.97);
+    box-shadow:
+        inset 0 10px 15px rgba(80, 0, 0, 0.8);
+}
+
+
+/* =========================
+   MICRO EN ENREGISTREMENT
+   ========================= */
+
+#microButton.recording span {
+    transform: scale(0.97);
+    box-shadow:
+        inset 0 10px 15px rgba(80, 0, 0, 0.8);
+    animation: pulse-record 1s ease-in-out infinite;
+}
+
+@keyframes pulse-record {
+    0%, 100% { box-shadow: inset 0 10px 15px rgba(80, 0, 0, 0.8), 0 0 0 0 rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: inset 0 10px 15px rgba(80, 0, 0, 0.8), 0 0 0 18px rgba(255, 0, 0, 0); }
+}
+
+/* =========================
+   MESSAGE D'ÉTAT
+   ========================= */
+
+#status {
+    font-size: 18px;
+}
+
+
+/* =========================
+   BOUTON SECONDAIRE
+   ========================= */
+
+.secondary-button {
+    background: transparent;
+    border: 2px solid #43A93E;
+    color: #7CFC98;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.secondary-button:hover {
+    background: #43A93E;
+    color: #111;
+}
+
+
+/* =========================
+   BARRE DE PROGRESSION (analyse en cours)
+   ========================= */
+
+.progress-bar {
+    width: 80%;
+    max-width: 380px;
+    height: 24px;
+    border: 3px solid #43A93E;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #1f6e1a, #7CFC98);
+    transition: width 0.3s ease;
+}
+
+#progressLabel {
+    font-size: 16px;
+    color: #7CFC98;
+}
+
+
+/* =========================
+   RADAR
+   ========================= */
+
+.radar {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 10px 0 30px;
+    background:
+        linear-gradient(rgba(124, 252, 152, 0.25) 1px, transparent 1px) 0 0 / 10% 10%,
+        linear-gradient(90deg, rgba(124, 252, 152, 0.25) 1px, transparent 1px) 0 0 / 10% 10%,
+        radial-gradient(circle, rgba(20, 90, 30, 0.55), rgba(5, 20, 8, 0.95));
+    border: 3px solid #2ecc40;
+    border-radius: 10px;
+    box-shadow:
+        0 0 25px rgba(46, 204, 64, 0.6),
+        inset 0 0 25px rgba(46, 204, 64, 0.4);
+}
+
+.radar-label {
+    position: absolute;
+    color: #7CFC98;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 0 0 4px #000;
+}
+
+.radar-n { top: -24px; left: 50%; transform: translateX(-50%); }
+.radar-s { bottom: -24px; left: 50%; transform: translateX(-50%); }
+.radar-e { right: -24px; top: 50%; transform: translateY(-50%); }
+.radar-w { left: -24px; top: 50%; transform: translateY(-50%); }
+
+/* Point central (sera remplacé par une image de Rick et Morty) */
+.radar-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: #2ecc40;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px 4px rgba(46, 204, 64, 0.8);
+    z-index: 2;
+}
+
+/* Portail : sa position (top/left/right/bottom) est fixée en JS
+   à partir des coordonnées renvoyées par FastAPI */
+.radar-portal {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 8px rgba(120, 255, 120, 0.8));
+    z-index: 3;
+    transition: top 0.6s ease, left 0.6s ease, right 0.6s ease, bottom 0.6s ease;
+}
+
+/* La durée du modèle est inconnue : indicateur d'attente sans faux pourcentage. */
+#analyse.active .progress-bar-fill {
+    width: 35%;
+    animation: analyse-pending 1.6s ease-in-out infinite alternate;
+}
+@keyframes analyse-pending {
+    from { transform: translateX(0); }
+    to { transform: translateX(185%); }
+}
+.text-entry {
+    width: 100%;
+    max-width: 420px;
+}
+.text-entry summary { cursor: pointer; }
+.text-entry form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+}
+.text-entry textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #43A93E;
+    border-radius: 8px;
+    font: inherit;
+    resize: vertical;
+}
+button:disabled { opacity: 0.5; cursor: default; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+    #analyse.active .progress-bar-fill { animation: none; }
+}
+
+/* La recherche ne s'anime qu'une fois autorisée par le serveur. */
+.validation-status {
+    color: #a3ffb1;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(5, 20, 8, 0.85);
+}
+.search-state {
+    color: #d5ffdc;
+    border: 1px solid #43a93e;
+    border-radius: 20px;
+    padding: 8px 16px;
+    background: rgba(5, 20, 8, 0.85);
+}
+.radar { flex-shrink: 0; }
+.radar-sweep {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+.radar-sweep::before {
+    content: "";
+    position: absolute;
+    inset: -25%;
+    background: conic-gradient(from 0deg, transparent 0deg 270deg, rgba(124, 252, 152, 0.45) 360deg);
+}
+.radar.searching .radar-sweep { opacity: 1; }
+.radar.searching .radar-sweep::before {
+    animation: radar-search 2.5s linear infinite;
+}
+.radar.found { border-color: #fff765; }
+.radar-label { z-index: 4; }
+#radar.screen.active { gap: 12px; }
+#radarDisplay { margin-top: 18px; }
+@keyframes radar-search {
+    to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .radar.searching .radar-sweep::before { animation: none; }
+}
